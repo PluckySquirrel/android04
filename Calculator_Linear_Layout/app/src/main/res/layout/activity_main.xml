@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
     android:weightSum="25">
 
-    <!-- Display -->
+
     <TextView
         android:id="@+id/display"
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
         android:padding="16dp"
         android:textColor="#000000" />
 
-    <!-- Buttons -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -282,10 +283,10 @@
                 android:layout_margin="2dp"
                 android:layout_weight="1"
                 android:background="#D3D3D3"
-                android:textSize="20sp"
-                android:textStyle="bold"
                 android:text="="
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
