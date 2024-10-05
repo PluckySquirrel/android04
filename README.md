@@ -1,4 +1,4 @@
-# Android_Studio
+# Android Studio
 
 This repository contains projects and code samples for developing Android applications using **Kotlin** in **Android Studio**.
 
