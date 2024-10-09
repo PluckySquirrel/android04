@@ -25,6 +25,17 @@
         android:layout_weight="15"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#407A7676"
+            android:gravity="end"
+            android:text=""
+            android:textSize="24sp"
+            android:padding="8dp"
+            android:textColor="#808080" /> <!-- Màu xám cho kết quả mờ -->
+
         <!-- Row 1 -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -258,7 +269,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/buttonPercent"
+                android:id="@+id/buttonExponent"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="2dp"
@@ -266,7 +277,7 @@
                 android:background="#979595"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="%"
+                android:text="^"
                 android:textColor="@color/white" />
 
             <Button

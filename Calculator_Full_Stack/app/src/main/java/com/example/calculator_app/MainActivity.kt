@@ -1,4 +1,3 @@
-// MainActivity.kt
 package com.example.calculator_app
 
 import android.os.Bundle
@@ -12,6 +11,7 @@ import net.objecthunter.exp4j.ExpressionBuilder
 class MainActivity : AppCompatActivity() {
 
     private lateinit var display: TextView
+    private lateinit var result: TextView // Khai báo TextView cho kết quả
     private var currentExpression = StringBuilder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main) // Đảm bảo tên layout đúng
 
         display = findViewById(R.id.display)
+        result = findViewById(R.id.result) // Ánh xạ TextView cho kết quả
 
         // Tạo mảng các nút số và phép toán
         val buttonIds = intArrayOf(
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                 val button = view as Button
                 currentExpression.append(button.text)
                 display.text = currentExpression.toString()
+                updateResult() // Cập nhật kết quả mỗi khi nhấn nút
             }
         }
 
@@ -40,11 +42,14 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.buttonCE).setOnClickListener {
             currentExpression.clear()
             display.text = "0"
+            result.text = "" // Xóa kết quả khi xóa biểu thức
         }
 
         // Nút C - Clear Memory
         findViewById<Button>(R.id.buttonC).setOnClickListener {
-            // Xóa bộ nhớ, không thay đổi giao diện
+            currentExpression.clear()
+            display.text = "0" // Đặt lại hiển thị
+            result.text = "" // Xóa kết quả
         }
 
         // Nút BS - Backspace
@@ -52,39 +57,28 @@ class MainActivity : AppCompatActivity() {
             if (currentExpression.isNotEmpty()) {
                 currentExpression.deleteCharAt(currentExpression.length - 1)
                 display.text = if (currentExpression.isEmpty()) "0" else currentExpression.toString()
-            }
-        }
-        // Nút % - Chia lấy phần dư
-        findViewById<Button>(R.id.buttonPercent).setOnClickListener {
-            val parts = currentExpression.toString().split("%")
-            if (parts.size == 2) {
-                val left = parts[0].toDoubleOrNull()
-                val right = parts[1].toDoubleOrNull()
-
-                if (left != null && right != null && right != 0.0) {
-                    val result = left % right
-                    display.text = result.toString()
-                    currentExpression = StringBuilder(result.toString())
-                } else {
-                    display.text = "Error"
-                }
-            } else {
-                display.text = "Error"
+                updateResult() // Cập nhật kết quả khi xóa ký tự
             }
         }
 
+        // Nút ^ - Tính lũy thừa
+        findViewById<Button>(R.id.buttonExponent).setOnClickListener {
+            currentExpression.append("^") // Thêm dấu ^ vào biểu thức
+            display.text = currentExpression.toString() // Cập nhật hiển thị
+            updateResult() // Cập nhật kết quả
+        }
 
         // Nút = - Tính toán kết quả
         findViewById<Button>(R.id.buttonEqual).setOnClickListener {
             try {
                 val expression: Expression = ExpressionBuilder(currentExpression.toString()).build()
-                val result = expression.evaluate()
+                val resultValue = expression.evaluate()
 
                 // Kiểm tra xem kết quả có phải là số nguyên hay không
-                display.text = if (result == result.toInt().toDouble()) {
-                    result.toInt().toString() // Chỉ hiển thị phần nguyên
+                display.text = if (resultValue == resultValue.toInt().toDouble()) {
+                    resultValue.toInt().toString() // Chỉ hiển thị phần nguyên
                 } else {
-                    result.toString()
+                    resultValue.toString()
                 }
 
                 currentExpression = StringBuilder(display.text.toString())
@@ -93,6 +87,23 @@ class MainActivity : AppCompatActivity() {
                 currentExpression.clear()
             }
         }
+    }
 
+    // Hàm cập nhật kết quả
+    private fun updateResult() {
+        try {
+            // Chỉ cần xây dựng biểu thức từ currentExpression
+            val expression: Expression = ExpressionBuilder(currentExpression.toString()).build()
+            val resultValue = expression.evaluate()
+
+            // Cập nhật kết quả
+            result.text = if (resultValue == resultValue.toInt().toDouble()) {
+                resultValue.toInt().toString() // Chỉ hiển thị phần nguyên
+            } else {
+                resultValue.toString()
+            }
+        } catch (e: Exception) {
+            result.text = "" // Xóa kết quả khi có lỗi
+        }
     }
 }
