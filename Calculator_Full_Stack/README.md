@@ -3,6 +3,6 @@ Kotlin Calculator is an simple calculator that performs various complex calculat
 
 ## Screenshots:
 <div>
-<img src="./calculator_example" title="Kotlin Calculator example"/>
+<img src="./calculator_example.jpg" title="Kotlin Calculator example"/>
 </div>
 
