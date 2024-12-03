@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/studentListFragment">
+
+    <fragment
+        android:id="@+id/studentListFragment"
+        android:name="vn.edu.hust.studentman.StudentListFragment"
+        android:label="fragment_student_list"
+        tools:layout="@layout/fragment_student_list" >
+        <action
+            android:id="@+id/action_studentListFragment_to_studentFormFragment"
+            app:destination="@id/studentFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentFormFragment"
+        android:name="vn.edu.hust.studentman.StudentFormFragment"
+        android:label="fragment_student_form"
+        tools:layout="@layout/fragment_student_form" >
+        <action
+            android:id="@+id/action_studentFormFragment_to_studentListFragment"
+            app:destination="@id/studentListFragment" />
+    </fragment>
+</navigation>
